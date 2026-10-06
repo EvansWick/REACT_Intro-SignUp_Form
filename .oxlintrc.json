@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "oxc"],
+  "rules": {
+    /* React Hooks та експорт */
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+
+    /* Ключові правила для React та списків */
+    "react/jsx-key": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-no-undef": "error",
+    "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
+    "react/void-dom-elements-no-children": "error",
+
+    /* Загальна коректність JS (запобігання багам часу виконання) */
+    "no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+    "no-undef": "error",
+    "no-const-assign": "error",
+    "no-dupe-keys": "error",
+    "no-duplicate-case": "error",
+    "no-unreachable": "warn",
+    "valid-typeof": "error",
+    "no-cond-assign": "error",
+    "no-debugger": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    /* Специфічні правила oxc / оптимізація */
+    "oxc/no-accumulating-spread": "warn"
+  }
+}

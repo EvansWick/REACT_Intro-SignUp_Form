@@ -1,0 +1,123 @@
+.form {
+  --primary: #543530;
+  --secondary: #0fd480;
+  --error: #e74c3c;
+  --text: #2a2a2a;
+  --bg: #ffffff;
+  --border: #cccccc;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.formTitle {
+  color: var(--primary);
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 0rem;
+}
+
+.labelRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.labelTitle {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.input {
+  font-size: 1.05rem;
+  padding: 0.8rem;
+  border: none;
+  border-bottom: 0.1rem solid var(--border);
+
+  color: var(--text);
+  /* outline: none; */
+}
+
+.input:focus {
+  border: none;
+  border-bottom: 0.1rem solid var(--border);
+  border-color: var(--primary);
+  outline: none;
+  /* box-shadow: 0rem 0rem 0rem 0.2rem rgba(84, 53, 48, 0.2); */
+}
+
+.inputValid {
+  border-bottom: 0.3rem solid var(--border);
+  border-color: var(--secondary);
+}
+
+.inputInvalid {
+  border-bottom: 0.3rem solid var(--border);
+
+  border-color: var(--error);
+}
+
+.inputShowPassword {
+  position: absolute;
+  margin: 0;
+  right: 0.8rem;
+  bottom: calc(0.8rem + 0.1rem);
+  /* transform: translate(0, -50%); */
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.errorText {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin-top: -0.8rem;
+}
+
+.rulsAgreeContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.agreeTitle {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.submitButton {
+  background-color: var(--primary);
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.submitButton:hover {
+  background-color: #402824;
+}
+
+.toLogInContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.toLogInLink {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.toLogInLink:hover {
+  text-decoration: underline;
+}
