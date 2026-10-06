@@ -33,25 +33,15 @@ export default class SignUpForm extends Component {
       isRulsAgree: false,
 
       errors: {},
+
+      regStatus: {
+        successText: "Success registration!",
+        isSuccess: false,
+        errorText: "Fail registration. Check your data",
+        showStatus: false,
+      },
     };
   }
-
-  // changeInputHandler = (e) => {
-  //   e.stopPropagation();
-  //   const { name, value, type, checked } = e.target;
-
-  //   this.setState((prevState) => {
-  //     const errs = this.checkUserInfo();
-  //     return {
-  //       [name]: type === "checkbox" ? checked : value,
-
-  //       errors: {
-  //         ...prevState.errors,
-  //         [name]: errs[name],
-  //       },
-  //     };
-  //   });
-  // };
 
   changeInputHandler = (e) => {
     e.stopPropagation();
@@ -69,6 +59,12 @@ export default class SignUpForm extends Component {
         errorsList[name] = VALIDATION_REGEX[name].test(newValue)
           ? ""
           : ERRORS_MAP[name];
+        if (name === "password" && prevState.checkPassword) {
+          errorsList["checkPassword"] =
+            newValue === prevState.checkPassword
+              ? ""
+              : ERRORS_MAP["checkPassword"];
+        }
       }
       switch (name) {
         case "checkPassword":
@@ -91,7 +87,6 @@ export default class SignUpForm extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    // конструювання об'єкту юзера
     const errList = this.checkUserInfo();
     const isCorrectUser =
       !errList.nickName &&
@@ -100,10 +95,34 @@ export default class SignUpForm extends Component {
       !errList.checkPassword &&
       !errList.isRulsAgree;
     if (isCorrectUser) {
-      const { checkPassword, showPassword, isRulsAgree, errors, ...newUser } =
-        this.state;
+      const {
+        checkPassword,
+        showPassword,
+        isRulsAgree,
+        errors,
+        regStatus,
+        ...newUser
+      } = this.state;
       console.log(JSON.stringify(newUser));
-    } else console.log(Object.keys(this.checkUserInfo()).length);
+      this.setState({
+        regStatus: {
+          successText: "Success registration!",
+          isSuccess: true,
+          errorText: "Fail registration. Check your data",
+          showStatus: true,
+        },
+      });
+    } else {
+      console.log("Incorrect user data");
+      this.setState({
+        regStatus: {
+          successText: "Success registration!",
+          isSuccess: false,
+          errorText: "Fail registration. Check your data",
+          showStatus: true,
+        },
+      });
+    }
   };
   checkUserInfo(prevstate = this.state) {
     // Перевірка даних
@@ -119,28 +138,24 @@ export default class SignUpForm extends Component {
     // email
     if (!VALIDATION_REGEX.email.test(email)) {
       newErrors.email = `Введіть справжній Email`;
-      console.log(newErrors.email);
     } else {
       newErrors.email = "";
     }
     // password
     if (!VALIDATION_REGEX.password.test(password)) {
       newErrors.password = `Пароль має включати велику літеру, спец символ, цифру та бути від 8 до 25 символів`;
-      console.log(newErrors.password);
     } else {
       newErrors.password = "";
     }
     // password and check
     if (password !== checkPassword) {
       newErrors.checkPassword = `Паролі мають співпадати`;
-      console.log(newErrors.checkPassword);
     } else {
       newErrors.checkPassword = "";
     }
     // agreement
     if (!isRulsAgree) {
       newErrors.isRulsAgree = `Погодьтеся з умовами користування`;
-      console.log(newErrors.isRulsAgree);
     } else {
       newErrors.isRulsAgree = "";
     }
@@ -267,12 +282,26 @@ export default class SignUpForm extends Component {
           <button className={styles.submitButton} type="submit">
             Реєстрація
           </button>
+
           <div className={styles.toLogInContainer}>
             <span>Вже маєте аккаунт?</span>
             <a href="#" className={styles.toLogInLink}>
               Увійдіть в нього
             </a>
           </div>
+
+          {this.state.regStatus.showStatus && (
+            <span
+              className={classNames({
+                [styles.regSuccess]: this.state.regStatus.isSuccess,
+                [styles.regFail]: !this.state.regStatus.isSuccess,
+              })}
+            >
+              {this.state.regStatus.isSuccess
+                ? this.state.regStatus.successText
+                : this.state.regStatus.errorText}
+            </span>
+          )}
         </form>
       </>
     );

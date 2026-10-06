@@ -46,18 +46,19 @@
   border-bottom: 0.1rem solid var(--border);
   border-color: var(--primary);
   outline: none;
-  /* box-shadow: 0rem 0rem 0rem 0.2rem rgba(84, 53, 48, 0.2); */
 }
 
 .inputValid {
   border-bottom: 0.3rem solid var(--border);
   border-color: var(--secondary);
+  color: var(--secondary);
 }
 
 .inputInvalid {
   border-bottom: 0.3rem solid var(--border);
 
   border-color: var(--error);
+  color: var(--error);
 }
 
 .inputShowPassword {
@@ -120,4 +121,18 @@
 
 .toLogInLink:hover {
   text-decoration: underline;
+}
+
+.regSuccess {
+  color: #0fd480;
+}
+.regFail {
+  color: var(--error);
+}
+
+.regFail,
+.regSuccess {
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 600;
 }
