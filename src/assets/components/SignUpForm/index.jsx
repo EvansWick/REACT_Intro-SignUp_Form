@@ -49,32 +49,33 @@ export default class SignUpForm extends Component {
     const newValue = type === "checkbox" ? checked : value;
 
     this.setState((prevState) => {
-      const errorsList = { ...prevState.errors };
+      // const errorsList = { ...prevState.errors };
+      const errorsList = this.checkUserInfo(prevState, name, newValue);
 
-      if (
-        name !== "checkPassword" &&
-        name !== "isRulsAgree" &&
-        name !== "showPassword"
-      ) {
-        errorsList[name] = VALIDATION_REGEX[name].test(newValue)
-          ? ""
-          : ERRORS_MAP[name];
-        if (name === "password" && prevState.checkPassword) {
-          errorsList["checkPassword"] =
-            newValue === prevState.checkPassword
-              ? ""
-              : ERRORS_MAP["checkPassword"];
-        }
-      }
-      switch (name) {
-        case "checkPassword":
-          errorsList[name] =
-            newValue === prevState.password ? "" : ERRORS_MAP[name];
-          break;
-        case "isRulsAgree":
-          errorsList[name] = newValue ? "" : ERRORS_MAP[name];
-          break;
-      }
+      // if (
+      //   name !== "checkPassword" &&
+      //   name !== "isRulsAgree" &&
+      //   name !== "showPassword"
+      // ) {
+      //   errorsList[name] = VALIDATION_REGEX[name].test(newValue)
+      //     ? ""
+      //     : ERRORS_MAP[name];
+      //   if (name === "password" && prevState.checkPassword) {
+      //     errorsList["checkPassword"] =
+      //       newValue === prevState.checkPassword
+      //         ? ""
+      //         : ERRORS_MAP["checkPassword"];
+      //   }
+      // }
+      // switch (name) {
+      //   case "checkPassword":
+      //     errorsList[name] =
+      //       newValue === prevState.password ? "" : ERRORS_MAP[name];
+      //     break;
+      //   case "isRulsAgree":
+      //     errorsList[name] = newValue ? "" : ERRORS_MAP[name];
+      //     break;
+      // }
 
       return {
         [name]: newValue,
@@ -124,43 +125,56 @@ export default class SignUpForm extends Component {
       });
     }
   };
-  checkUserInfo(prevstate = this.state) {
+  checkUserInfo(prevstate = this.state, name = null, newValue = undefined) {
     // Перевірка даних
+    const errorsList = { ...prevstate.errors };
+
+    if (name && newValue !== undefined) {
+      if (
+        name !== "checkPassword" &&
+        name !== "isRulsAgree" &&
+        name !== "showPassword"
+      ) {
+        errorsList[name] = VALIDATION_REGEX[name].test(newValue)
+          ? ""
+          : ERRORS_MAP[name];
+        if (name === "password" && prevstate.checkPassword) {
+          errorsList["checkPassword"] =
+            newValue === prevstate.checkPassword
+              ? ""
+              : ERRORS_MAP["checkPassword"];
+        }
+      }
+      switch (name) {
+        case "checkPassword":
+          errorsList[name] =
+            newValue === prevstate.password ? "" : ERRORS_MAP[name];
+          break;
+        case "isRulsAgree":
+          errorsList[name] = newValue ? "" : ERRORS_MAP[name];
+          break;
+      }
+
+      return errorsList;
+    }
+
     const { nickName, email, password, checkPassword, isRulsAgree } = prevstate;
-    const newErrors = {};
 
-    // login
-    if (!VALIDATION_REGEX.nickName.test(nickName)) {
-      newErrors.nickName = `Ім'я користувача має бути написане латиницею від 3 до 16 символів, без пробілів та спец символів`;
-    } else {
-      newErrors.nickName = "";
-    }
-    // email
-    if (!VALIDATION_REGEX.email.test(email)) {
-      newErrors.email = `Введіть справжній Email`;
-    } else {
-      newErrors.email = "";
-    }
-    // password
-    if (!VALIDATION_REGEX.password.test(password)) {
-      newErrors.password = `Пароль має включати велику літеру, спец символ, цифру та бути від 8 до 25 символів`;
-    } else {
-      newErrors.password = "";
-    }
-    // password and check
-    if (password !== checkPassword) {
-      newErrors.checkPassword = `Паролі мають співпадати`;
-    } else {
-      newErrors.checkPassword = "";
-    }
-    // agreement
-    if (!isRulsAgree) {
-      newErrors.isRulsAgree = `Погодьтеся з умовами користування`;
-    } else {
-      newErrors.isRulsAgree = "";
-    }
-
-    return newErrors;
+    errorsList.nickName = VALIDATION_REGEX.nickName.test(nickName)
+      ? ""
+      : ERRORS_MAP.nickName;
+    errorsList.email = VALIDATION_REGEX.email.test(email)
+      ? ""
+      : ERRORS_MAP.email;
+    errorsList.password = VALIDATION_REGEX.password.test(password)
+      ? ""
+      : ERRORS_MAP.password;
+    errorsList.checkPassword =
+      checkPassword === password && password.length > 0
+        ? ""
+        : ERRORS_MAP.checkPassword;
+    errorsList.isRulsAgree = isRulsAgree ? "" : ERRORS_MAP.isRulsAgree;
+    return errorsList;
   }
   render() {
     return (

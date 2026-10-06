@@ -5,10 +5,24 @@
   --text: #2a2a2a;
   --bg: #ffffff;
   --border: #cccccc;
+  --primary-hover: #402824;
+
+  --fw-bold: 600;
+  --fs-small: 0.9rem;
+  --fs-base: 1.05rem;
+  --fs-large: 1.2rem;
+  --fs-title: 1.5rem;
+
+  --space-sm: 0.4rem;
+  --space-md: 0.8rem;
+  --space-lg: 1.2rem;
+
+  --border-thin: 0.1rem solid var(--border);
+  --border-thick: 0.3rem solid var(--border);
 
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: var(--space-lg);
 }
 
 .formTitle {
@@ -21,42 +35,39 @@
 .labelRow {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: var(--space-sm);
   position: relative;
 }
 
 .labelTitle {
-  font-size: 0.9rem;
+  font-size: var(--fs-small);
   color: var(--text);
-  font-weight: 600;
+  font-weight: var(--fw-bold);
 }
 
 .input {
-  font-size: 1.05rem;
-  padding: 0.8rem;
+  font-size: var(--fs-base);
+  padding: var(--space-md);
   border: none;
-  border-bottom: 0.1rem solid var(--border);
-
+  border-bottom: var(--border-thin);
   color: var(--text);
-  /* outline: none; */
 }
 
 .input:focus {
   border: none;
-  border-bottom: 0.1rem solid var(--border);
+  border-bottom: var(--border-thin);
   border-color: var(--primary);
   outline: none;
 }
 
 .inputValid {
-  border-bottom: 0.3rem solid var(--border);
+  border-bottom: var(--border-thick);
   border-color: var(--secondary);
   color: var(--secondary);
 }
 
 .inputInvalid {
-  border-bottom: 0.3rem solid var(--border);
-
+  border-bottom: var(--border-thick);
   border-color: var(--error);
   color: var(--error);
 }
@@ -64,18 +75,17 @@
 .inputShowPassword {
   position: absolute;
   margin: 0;
-  right: 0.8rem;
-  bottom: calc(0.8rem + 0.1rem);
-  /* transform: translate(0, -50%); */
-  width: 1.2rem;
-  height: 1.2rem;
+  right: var(--space-md);
+  bottom: calc(var(--space-md) + 0.1rem);
+  width: var(--space-lg);
+  height: var(--space-lg);
   cursor: pointer;
 }
 
 .errorText {
   color: var(--error);
-  font-size: 0.8rem;
-  margin-top: -0.8rem;
+  font-size: var(--space-md);
+  margin-top: calc(var(--space-md) * -1);
 }
 
 .rulsAgreeContainer {
@@ -85,37 +95,37 @@
 }
 
 .agreeTitle {
-  font-size: 0.9rem;
+  font-size: var(--fs-small);
   color: var(--text);
 }
 
 .submitButton {
   background-color: var(--primary);
-  color: #ffffff;
-  font-size: 1.2rem;
-  padding: 0.8rem;
+  color: var(--bg);
+  font-size: var(--fs-large);
+  padding: var(--space-md);
   border: none;
-  border-radius: 0.4rem;
+  border-radius: var(--space-sm);
   cursor: pointer;
-  font-weight: 600;
-  margin-top: 0.8rem;
+  font-weight: var(--fw-bold);
+  margin-top: var(--space-md);
 }
 
 .submitButton:hover {
-  background-color: #402824;
+  background-color: var(--primary-hover);
 }
 
 .toLogInContainer {
   display: flex;
   justify-content: center;
-  gap: 0.4rem;
-  font-size: 0.9rem;
+  gap: var(--space-sm);
+  font-size: var(--fs-small);
   color: var(--text);
 }
 
 .toLogInLink {
   color: var(--primary);
-  font-weight: 600;
+  font-weight: var(--fw-bold);
   text-decoration: none;
 }
 
@@ -124,15 +134,16 @@
 }
 
 .regSuccess {
-  color: #0fd480;
+  color: var(--secondary);
 }
+
 .regFail {
   color: var(--error);
 }
 
 .regFail,
 .regSuccess {
-  font-size: 1.5rem;
+  font-size: var(--fs-title);
   text-align: center;
-  font-weight: 600;
+  font-weight: var(--fw-bold);
 }
