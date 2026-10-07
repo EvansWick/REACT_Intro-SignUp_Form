@@ -5,7 +5,7 @@ import classNames from "classnames";
 const VALIDATION_REGEX = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   password:
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\];':"\\|,./?]).{8,25}$/, // Мінімум 8 символів,
+    /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\];':"\\|,./?]).{8,25}$/, // Мінімум 8 символів,
   // літери та цифри + спец-символи
   nickName: /^[a-zA-Z0-9_]{3,16}$/, // Від 3 до 16 символів, без пробілів
 };
@@ -35,9 +35,9 @@ export default class SignUpForm extends Component {
       errors: {},
 
       regStatus: {
-        successText: "Success registration!",
+        successText: "Вас успішно зареєстровано",
         isSuccess: false,
-        errorText: "Fail registration. Check your data",
+        errorText: "Ви ввели некоректні дані",
         showStatus: false,
       },
     };
@@ -51,31 +51,6 @@ export default class SignUpForm extends Component {
     this.setState((prevState) => {
       // const errorsList = { ...prevState.errors };
       const errorsList = this.checkUserInfo(prevState, name, newValue);
-
-      // if (
-      //   name !== "checkPassword" &&
-      //   name !== "isRulsAgree" &&
-      //   name !== "showPassword"
-      // ) {
-      //   errorsList[name] = VALIDATION_REGEX[name].test(newValue)
-      //     ? ""
-      //     : ERRORS_MAP[name];
-      //   if (name === "password" && prevState.checkPassword) {
-      //     errorsList["checkPassword"] =
-      //       newValue === prevState.checkPassword
-      //         ? ""
-      //         : ERRORS_MAP["checkPassword"];
-      //   }
-      // }
-      // switch (name) {
-      //   case "checkPassword":
-      //     errorsList[name] =
-      //       newValue === prevState.password ? "" : ERRORS_MAP[name];
-      //     break;
-      //   case "isRulsAgree":
-      //     errorsList[name] = newValue ? "" : ERRORS_MAP[name];
-      //     break;
-      // }
 
       return {
         [name]: newValue,
@@ -105,23 +80,25 @@ export default class SignUpForm extends Component {
         ...newUser
       } = this.state;
       console.log(JSON.stringify(newUser));
-      this.setState({
-        regStatus: {
-          successText: "Success registration!",
-          isSuccess: true,
-          errorText: "Fail registration. Check your data",
-          showStatus: true,
-        },
+      this.setState((prevState) => {
+        return {
+          regStatus: {
+            ...prevState.regStatus,
+            showStatus: true,
+            isSuccess: true,
+          },
+        };
       });
     } else {
       console.log("Incorrect user data");
-      this.setState({
-        regStatus: {
-          successText: "Success registration!",
-          isSuccess: false,
-          errorText: "Fail registration. Check your data",
-          showStatus: true,
-        },
+      this.setState((prevState) => {
+        return {
+          regStatus: {
+            ...prevState.regStatus,
+            showStatus: true,
+            isSuccess: false,
+          },
+        };
       });
     }
   };
